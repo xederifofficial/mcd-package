@@ -24,18 +24,23 @@ export ARTIFACTS=/tmp/mobilecoind-mainnet-package
 echo "Bundling artifacts at ${ARTIFACTS}"
 
 rm -rf ${ARTIFACTS}
-mkdir -p ${ARTIFACTS}
+mkdir -p ${ARTIFACTS}/bin
 
-cp target/release/mobilecoind ${ARTIFACTS}/
-cp ingest-enclave.css ${ARTIFACTS}/
-cp consensus-enclave.css ${ARTIFACTS}/
+cp target/release/mobilecoind ${ARTIFACTS}/bin/
+cp target/release/mc-admin-http-gateawy ${ARTIFACTS}/bin/
+cp ingest-enclave.css ${ARTIFACTS}/bin/
+cp consensus-enclave.css ${ARTIFACTS}/bin/
 cat << EOF > "${ARTIFACTS}/README.md"
 # mobilecoind-mainnet (mobilecoin.git @ ${GIT_REV})
+
+This package includes:
 
 * The mobilecoind wallet
 * A CSS SGX Enclave Measurement file for the fog ingest enclave. ingest-enclave.css
 * The same for consensus enclave, although this should not be necessary.
 * The mc-admin-http-gateway
+
+Enclave css files downloaded from ${NETWORK}
 
 We don't include the mobilecoind-json. I would really like to kill that off,
 please consider using go-grpc-gateway to build an http-grpc bridge instead.
