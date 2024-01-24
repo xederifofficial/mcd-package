@@ -27,7 +27,7 @@ rm -rf ${ARTIFACTS}
 mkdir -p ${ARTIFACTS}/bin
 
 cp target/release/mobilecoind ${ARTIFACTS}/bin/
-cp target/release/mc-admin-http-gateawy ${ARTIFACTS}/bin/
+cp target/release/mc-admin-http-gateway ${ARTIFACTS}/bin/
 cp ingest-enclave.css ${ARTIFACTS}/bin/
 cp consensus-enclave.css ${ARTIFACTS}/bin/
 cat << EOF > "${ARTIFACTS}/README.md"
