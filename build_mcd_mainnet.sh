@@ -2,6 +2,8 @@
 
 set -e
 
+cp install_new_protoc.sh mobilecoin/
+
 pushd mobilecoin
 
 export GIT_REV=`git rev-parse HEAD`
@@ -12,13 +14,11 @@ cargo clean
 export NETWORK="prod.mobilecoin.com"
 echo "NETWORK = ${NETWORK}"
 
-source ./tools/download_sigstruct.sh
-export SGX_MODE=HW
-export IAS_MODE=PROD
-
 echo "Building mobilecoind"
 
-cargo build --release --locked -p mc-mobilecoind -p mc-admin-http-gateway
+./mob --verbose --no-publish --hw --ias-prod --env="NETWORK=${NETWORK}" "source ./tools/download_sigstruct.sh; sudo ./install_new_protoc.sh; cargo build --release --locked -p mc-mobilecoind -p mc-admin-http-gateway"
+
+rm install_new_protoc.sh
 
 export ARTIFACTS=/tmp/mobilecoind-mainnet-package
 echo "Bundling artifacts at ${ARTIFACTS}"
@@ -26,8 +26,8 @@ echo "Bundling artifacts at ${ARTIFACTS}"
 rm -rf ${ARTIFACTS}
 mkdir -p ${ARTIFACTS}/bin
 
-cp target/release/mobilecoind ${ARTIFACTS}/bin/
-cp target/release/mc-admin-http-gateway ${ARTIFACTS}/bin/
+cp target/docker/release/mobilecoind ${ARTIFACTS}/bin/
+cp target/docker/release/mc-admin-http-gateway ${ARTIFACTS}/bin/
 cp ingest-enclave.css ${ARTIFACTS}/bin/
 cp consensus-enclave.css ${ARTIFACTS}/bin/
 cat << EOF > "${ARTIFACTS}/README.md"
