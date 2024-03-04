@@ -10,7 +10,7 @@ export GIT_REV=`git rev-parse HEAD`
 echo "GIT_REV = ${GIT_REV}"
 
 source ./tools/download_sigstruct.sh
-cargo build --release --locked -p mc-mobilecoind -p mc-admin-http-gateway
+cargo build --jobs 1 --release --locked -p mc-mobilecoind -p mc-admin-http-gateway
 
 cat << EOF > "docker-readme.md"
 # mobilecoind ($NETWORK, mobilecoin.git @ ${GIT_REV})
