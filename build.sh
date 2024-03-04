@@ -10,6 +10,10 @@ export GIT_REV=`git rev-parse HEAD`
 echo "GIT_REV = ${GIT_REV}"
 
 source ./tools/download_sigstruct.sh
+
+# Fix multiplatform build memory issues
+# https://github.com/docker/build-push-action/issues/621#issuecomment-1383624173
+export CARGO_NET_GIT_FETCH_WITH_CLI=true
 cargo build --jobs 1 --release --locked -p mc-mobilecoind -p mc-admin-http-gateway
 
 cat << EOF > "docker-readme.md"
