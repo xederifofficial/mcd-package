@@ -7,7 +7,7 @@ SHELL ["/bin/bash", "-c"]
 ARG NETWORK
 ENV NETWORK ${NETWORK}
 
-RUN "Network: $NETWORK"
+RUN echo "Network: $NETWORK"
 
 RUN  ln -fs /usr/share/zoneinfo/Etc/UTC /etc/localtime \
   && apt-get update \
