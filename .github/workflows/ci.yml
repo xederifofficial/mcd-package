@@ -15,8 +15,10 @@ env:
 
 jobs:
   docker:
-    #runs-on: ubuntu-latest
     runs-on: [ "ubuntu-latest-m" ]
+    strategy:
+      matrix:
+        network: ["test", "prod"]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -39,7 +41,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.REGISTRY_IMAGE }}
+          images: ${{ env.REGISTRY_IMAGE }}-${{ matrix.network }}
 
       - name: Build and push
         uses: docker/build-push-action@v5
@@ -49,4 +51,6 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            NETWORK=${{ matrix.network }}.mobilecoin.com
           #tags: ${{ env.REGISTRY_IMAGE }}:latest

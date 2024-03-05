@@ -4,7 +4,8 @@ set -ex
 
 cd mobilecoin
 
-export NETWORK="test.mobilecoin.com" IAS_MODE=PROD SGX_MODE=HW
+export IAS_MODE=PROD SGX_MODE=HW
+echo "Network: $NETWORK"
 
 export GIT_REV=`git rev-parse HEAD`
 echo "GIT_REV = ${GIT_REV}"

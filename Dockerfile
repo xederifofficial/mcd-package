@@ -4,28 +4,24 @@
 FROM ubuntu:focal-20230126 as mc-builder
 SHELL ["/bin/bash", "-c"]
 
+ARG NETWORK
+ENV NETWORK ${NETWORK}
+
+RUN "Network: $NETWORK"
+
 RUN  ln -fs /usr/share/zoneinfo/Etc/UTC /etc/localtime \
   && apt-get update \
   && apt-get upgrade -y \
   && apt-get install -y \
      build-essential \
-     #clang \
      cmake \
      curl \
      git \
-     #jq \
      libclang-dev \
      libprotobuf-dev \
-     #libpq-dev \
-     #libssl1.1 \
-     #libssl-dev \
-     #llvm \
-     #llvm-dev \
-     #pkg-config \
      unzip \
      wget \
      zlib1g-dev \
-     #zstd \
   && apt-get clean \
   && rm -r /var/lib/apt/lists
 
