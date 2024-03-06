@@ -21,7 +21,8 @@ env:
 
 jobs:
   docker:
-    runs-on: [ "ubuntu-latest-m" ]
+    #runs-on: [ "ubuntu-latest-m" ]
+    runs-on: [ "ubuntu-latest" ]
     strategy:
       matrix:
         network: ["test", "prod"]
