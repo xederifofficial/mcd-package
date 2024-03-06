@@ -1,0 +1,26 @@
+name: Tag on merge to main
+
+on:
+  push:
+    branches:
+      - main
+    pull_request:
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+
+    steps:
+      - id: compute-tag
+        uses: craig-day/compute-tag@v15
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          version_scheme: continuous
+          version_type: minor
+
+      - id: create-tag
+        uses: mathieudutour/github-tag-action@v6.1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          custom_tag: ${{ steps.compute-tag.outputs.next_tag }}
+          tag_prefix: ''
