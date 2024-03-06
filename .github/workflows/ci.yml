@@ -1,4 +1,4 @@
-name: ci
+name: release-to-dockerhub
 
 on:
   workflow_dispatch:
