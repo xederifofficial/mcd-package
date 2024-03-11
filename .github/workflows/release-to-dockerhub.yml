@@ -9,7 +9,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  REGISTRY_IMAGE: 181873034162.dkr.ecr.us-west-2.amazonaws.com/mobilecoind
+  REGISTRY_IMAGE: public.ecr.aws/f8p9h8d2/mobilecoind
 
 jobs:
   docker:
@@ -43,6 +43,8 @@ jobs:
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
+        with:
+          mask-password: true
 
       - name: Docker meta
         id: meta
