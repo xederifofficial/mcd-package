@@ -63,8 +63,8 @@ RUN apt-get update \
         wget \
 	&& rm -rf /var/lib/apt/lists/*
 
-COPY --from=mc-builder /mc-build/mobilecoin/target/release/mobilecoind /usr/local/bin/
-COPY --from=mc-builder /mc-build/mobilecoin/target/release/mc-admin-http-gateway /usr/local/bin/
+#COPY --from=mc-builder /mc-build/mobilecoin/target/release/mobilecoind /usr/local/bin/
+#COPY --from=mc-builder /mc-build/mobilecoin/target/release/mc-admin-http-gateway /usr/local/bin/
 COPY --from=mc-builder /mc-build/mobilecoin/consensus-enclave.css /usr/local/bin/
 COPY --from=mc-builder /mc-build/mobilecoin/ingest-enclave.css /usr/local/bin/
 COPY --from=mc-builder /mc-build/mobilecoin/docker-readme.md /README.md
