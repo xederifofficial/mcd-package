@@ -2,7 +2,7 @@ name: release-to-dockerhub
 
 on:
   workflow_dispatch:
-  #pull_request:
+  pull_request:
 
 concurrency:
   group: ${{ github.ref }}
